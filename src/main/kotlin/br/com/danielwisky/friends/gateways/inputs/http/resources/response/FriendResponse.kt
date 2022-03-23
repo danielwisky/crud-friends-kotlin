@@ -2,10 +2,9 @@ package br.com.danielwisky.friends.gateways.inputs.http.resources.response
 
 import br.com.danielwisky.friends.domains.Friend
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY
 import java.time.LocalDateTime
 
-@JsonInclude(NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 data class FriendResponse(
     var id: String? = null,
     var name: String? = null,
