@@ -1,10 +1,15 @@
 package br.com.danielwisky.friends.gateways.inputs.http
 
+import br.com.danielwisky.friends.gateways.inputs.http.resources.request.FriendFilterRequest
 import br.com.danielwisky.friends.gateways.inputs.http.resources.request.FriendRequest
 import br.com.danielwisky.friends.gateways.inputs.http.resources.response.FriendResponse
+import br.com.danielwisky.friends.gateways.inputs.http.resources.response.PageResponse
 import br.com.danielwisky.friends.usecases.CreateFriend
 import br.com.danielwisky.friends.usecases.FindFriend
+import br.com.danielwisky.friends.usecases.SearchFriends
 import br.com.danielwisky.friends.usecases.UpdateFriend
+import org.springframework.data.domain.PageRequest.of
+import org.springframework.data.domain.Sort.Direction.DESC
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -14,7 +19,8 @@ import javax.validation.Valid
 class FriendController(
     private val createFriend: CreateFriend,
     private val updateFriend: UpdateFriend,
-    private val findFriend: FindFriend
+    private val findFriend: FindFriend,
+    private val searchFriends: SearchFriends
 ) {
 
     @PostMapping
@@ -36,5 +42,22 @@ class FriendController(
     @ResponseStatus(HttpStatus.OK)
     fun get(@PathVariable id: String): FriendResponse {
         return FriendResponse(findFriend.execute(id))
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    fun search(
+        request: FriendFilterRequest,
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "20") size: Int
+    ): PageResponse<FriendResponse> {
+        val page = searchFriends.execute(request.toDomain(), of(page, size, DESC, "id"))
+        return PageResponse(
+            content = page.map(::FriendResponse).toList(),
+            totalElements = page.totalElements,
+            totalPages = page.totalPages,
+            page = page.number,
+            size = page.size
+        );
     }
 }

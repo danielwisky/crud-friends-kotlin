@@ -3,7 +3,6 @@ package br.com.danielwisky.friends.gateways.inputs.http
 import br.com.danielwisky.friends.domains.exceptions.BusinessValidationException
 import br.com.danielwisky.friends.domains.exceptions.ResourceNotFoundException
 import br.com.danielwisky.friends.gateways.inputs.http.resources.response.ErrorResponse
-import org.apache.commons.lang3.StringUtils.isNotBlank
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus.BAD_REQUEST
@@ -45,7 +44,7 @@ class CustomExceptionHandler {
 
     private fun createMessage(ex: Throwable): ErrorResponse? {
         var message: ErrorResponse? = null
-        if (isNotBlank(ex.message.orEmpty())) {
+        if (!ex.message.isNullOrEmpty()) {
             message = ErrorResponse(listOf(ex.message.orEmpty()))
         }
         return message
