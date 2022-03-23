@@ -1,2 +1,3 @@
 # friends
-crud - kotlin
+
+basic friend registration
