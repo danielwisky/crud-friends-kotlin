@@ -20,6 +20,7 @@
   <properties>
     <java.version>17</java.version>
     <kotlin.version>1.6.10</kotlin.version>
+    <springdoc-openapi-ui.version>1.6.6</springdoc-openapi-ui.version>
     <ktlint-maven-plugin.version>1.12.1</ktlint-maven-plugin.version>
   </properties>
 
@@ -47,6 +48,13 @@
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
+    </dependency>
+
+    <!-- springdoc -->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc-openapi-ui.version}</version>
     </dependency>
 
     <dependency>

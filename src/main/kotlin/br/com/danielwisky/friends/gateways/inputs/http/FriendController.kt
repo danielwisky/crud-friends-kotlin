@@ -8,6 +8,7 @@ import br.com.danielwisky.friends.usecases.CreateFriend
 import br.com.danielwisky.friends.usecases.FindFriend
 import br.com.danielwisky.friends.usecases.SearchFriends
 import br.com.danielwisky.friends.usecases.UpdateFriend
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.data.domain.PageRequest.of
 import org.springframework.data.domain.Sort.Direction.DESC
 import org.springframework.http.HttpStatus
@@ -25,12 +26,14 @@ class FriendController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
+    @Operation(description = "Create friend")
     fun create(@RequestBody @Valid friendRequest: FriendRequest): FriendResponse {
         return FriendResponse(createFriend.execute(friendRequest.toDomain()))
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(description = "Update friend")
     fun update(
         @PathVariable id: String,
         @RequestBody @Valid friendRequest: FriendRequest
@@ -40,12 +43,14 @@ class FriendController(
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(description = "Find friend by id")
     fun get(@PathVariable id: String): FriendResponse {
         return FriendResponse(findFriend.execute(id))
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @Operation(description = "Search friends by filter")
     fun search(
         request: FriendFilterRequest,
         @RequestParam(defaultValue = "0") page: Int,

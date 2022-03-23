@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 data class PageResponse<T>(
-    
     var content: List<T>? = null,
     var totalElements: Long,
     var totalPages: Int,
