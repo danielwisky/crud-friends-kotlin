@@ -10,14 +10,14 @@ import java.time.LocalDateTime
 @Document("friends")
 data class FriendDocument(
 
-    @Id
+    @field:Id
     var id: String? = null,
     var name: String? = null,
     var cellphone: String? = null,
     var email: String? = null,
-    @CreatedDate
+    @field:CreatedDate
     var createdDate: LocalDateTime? = null,
-    @LastModifiedDate
+    @field:LastModifiedDate
     var lastModifiedDate: LocalDateTime? = null,
 ) {
 
