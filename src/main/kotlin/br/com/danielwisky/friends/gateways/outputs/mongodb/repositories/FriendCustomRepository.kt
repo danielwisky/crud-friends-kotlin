@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component
 class FriendCustomRepository(private var mongoTemplate: MongoTemplate) {
 
     fun search(filter: FriendFilter, pageable: Pageable): Page<FriendDocument> {
-        val query = buildQuery(filter)
-        val friends = mongoTemplate.find(query(query).with(pageable), FriendDocument::class.java)
-        val total = mongoTemplate.count(query(query), FriendDocument::class.java)
+        val criteria = buildCriteria(filter)
+        val friends = mongoTemplate.find(query(criteria).with(pageable), FriendDocument::class.java)
+        val total = mongoTemplate.count(query(criteria), FriendDocument::class.java)
         return PageImpl(friends, pageable, total)
     }
 
-    private fun buildQuery(filter: FriendFilter): Criteria {
+    private fun buildCriteria(filter: FriendFilter): Criteria {
         val criteria = mutableListOf(Criteria.where("id").ne(null))
         CriteriaUtils.addEqualsIfNotEmpty(criteria, "name", filter.name)
         CriteriaUtils.addEqualsIfNotEmpty(criteria, "cellphone", filter.cellphone)
