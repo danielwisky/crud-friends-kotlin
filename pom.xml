@@ -22,6 +22,8 @@
     <kotlin.version>1.6.10</kotlin.version>
     <springdoc-openapi-ui.version>1.6.6</springdoc-openapi-ui.version>
     <mockk.version>1.12.3</mockk.version>
+    <springmockk.version>3.1.1</springmockk.version>
+    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
     <pitest-plugin.version>1.7.3</pitest-plugin.version>
     <jacoco-plugin.version>0.8.7</jacoco-plugin.version>
   </properties>
@@ -63,11 +65,27 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-core</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>io.mockk</groupId>
       <artifactId>mockk</artifactId>
       <version>${mockk.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.ninja-squad</groupId>
+      <artifactId>springmockk</artifactId>
+      <version>${springmockk.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -81,6 +99,12 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
       </plugin>
 
       <plugin>
@@ -168,7 +192,9 @@
                     <exclude>**.resources.**</exclude>
                     <exclude>**.repositories.**</exclude>
 
-                    <exclude>br.com.danielwisky.friends.gateways.inputs.http.CustomExceptionHandler</exclude>
+                    <exclude>
+                      br.com.danielwisky.friends.gateways.inputs.http.CustomExceptionHandler
+                    </exclude>
                     <exclude>br.com.danielwisky.friends.Application*</exclude>
                   </excludes>
                 </rule>
