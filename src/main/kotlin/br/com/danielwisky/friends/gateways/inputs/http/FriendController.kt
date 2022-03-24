@@ -56,13 +56,14 @@ class FriendController(
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "20") size: Int
     ): PageResponse<FriendResponse> {
-        val page = searchFriends.execute(request.toDomain(), of(page, size, DESC, "id"))
+        val friendPage =
+            searchFriends.execute(request.toDomain(), of(page, size, DESC, "id"))
         return PageResponse(
-            content = page.map(::FriendResponse).toList(),
-            totalElements = page.totalElements,
-            totalPages = page.totalPages,
-            page = page.number,
-            size = page.size
+            content = friendPage.map(::FriendResponse).toList(),
+            totalElements = friendPage.totalElements,
+            totalPages = friendPage.totalPages,
+            page = friendPage.number,
+            size = friendPage.size
         );
     }
 }

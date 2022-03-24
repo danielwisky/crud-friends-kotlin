@@ -22,7 +22,6 @@
     <kotlin.version>1.6.10</kotlin.version>
     <springdoc-openapi-ui.version>1.6.6</springdoc-openapi-ui.version>
     <mockk.version>1.12.3</mockk.version>
-    <ktlint-maven-plugin.version>1.12.1</ktlint-maven-plugin.version>
   </properties>
 
   <dependencies>
@@ -98,21 +97,6 @@
             <version>${kotlin.version}</version>
           </dependency>
         </dependencies>
-      </plugin>
-
-      <plugin>
-        <groupId>com.github.gantsign.maven</groupId>
-        <artifactId>ktlint-maven-plugin</artifactId>
-        <version>${ktlint-maven-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>format-and-check</id>
-            <goals>
-              <goal>format</goal>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
