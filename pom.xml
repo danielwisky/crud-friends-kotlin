@@ -21,6 +21,7 @@
     <java.version>17</java.version>
     <kotlin.version>1.6.10</kotlin.version>
     <springdoc-openapi-ui.version>1.6.6</springdoc-openapi-ui.version>
+    <mockk.version>1.12.3</mockk.version>
     <ktlint-maven-plugin.version>1.12.1</ktlint-maven-plugin.version>
   </properties>
 
@@ -62,6 +63,13 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.mockk</groupId>
+      <artifactId>mockk</artifactId>
+      <version>${mockk.version}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
