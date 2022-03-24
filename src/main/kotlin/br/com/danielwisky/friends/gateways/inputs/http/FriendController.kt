@@ -64,6 +64,6 @@ class FriendController(
             totalPages = friendPage.totalPages,
             page = friendPage.number,
             size = friendPage.size
-        );
+        )
     }
 }

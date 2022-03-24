@@ -5,4 +5,4 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing
 
 @Configuration
 @EnableMongoAuditing
-class MongoDBConfiguration 
+class MongoDBConfiguration
