@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.query.Query.query
 import org.springframework.stereotype.Component
 
 @Component
-class FriendCustomRepository(private var mongoTemplate: MongoTemplate) {
+class FriendDocumentCustomRepository(private var mongoTemplate: MongoTemplate) {
 
     fun search(filter: FriendFilter, pageable: Pageable): Page<FriendDocument> {
         val criteria = buildCriteria(filter)

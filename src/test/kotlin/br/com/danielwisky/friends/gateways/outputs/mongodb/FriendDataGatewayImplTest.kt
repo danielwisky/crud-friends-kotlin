@@ -3,8 +3,8 @@ package br.com.danielwisky.friends.gateways.outputs.mongodb
 import br.com.danielwisky.friends.UnitTest
 import br.com.danielwisky.friends.domains.FriendFilter
 import br.com.danielwisky.friends.gateways.outputs.mongodb.documents.FriendDocument
-import br.com.danielwisky.friends.gateways.outputs.mongodb.repositories.FriendCustomRepository
-import br.com.danielwisky.friends.gateways.outputs.mongodb.repositories.FriendRepository
+import br.com.danielwisky.friends.gateways.outputs.mongodb.repositories.FriendDocumentCustomRepository
+import br.com.danielwisky.friends.gateways.outputs.mongodb.repositories.FriendDocumentRepository
 import br.com.danielwisky.friends.templates.FriendTemplate
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -22,17 +22,17 @@ class FriendDataGatewayImplTest : UnitTest() {
     lateinit var friendDataGateway: FriendDataGatewayImpl
 
     @MockK
-    lateinit var friendRepository: FriendRepository
+    lateinit var friendDocumentRepository: FriendDocumentRepository
 
     @MockK
-    lateinit var friendCustomRepository: FriendCustomRepository
+    lateinit var friendDocumentCustomRepository: FriendDocumentCustomRepository
 
     @Test
     fun `should save`() {
         val friend = FriendTemplate.valid()
         val friendDocument = FriendDocument(friend)
 
-        every { friendRepository.save(friendDocument) } returns friendDocument
+        every { friendDocumentRepository.save(friendDocument) } returns friendDocument
 
         val friendSaved = friendDataGateway.save(friend)
 
@@ -43,11 +43,11 @@ class FriendDataGatewayImplTest : UnitTest() {
     fun `should delete`() {
         var id = "623b6de056c0d152b447f64e"
 
-        every { friendRepository.deleteById(id) } answers {}
+        every { friendDocumentRepository.deleteById(id) } answers {}
 
         friendDataGateway.delete(id)
 
-        verify { friendRepository.deleteById(id) }
+        verify { friendDocumentRepository.deleteById(id) }
     }
 
     @Test
@@ -56,7 +56,7 @@ class FriendDataGatewayImplTest : UnitTest() {
         val friendDocument = FriendDocument(friend)
         val id = friendDocument.id!!
 
-        every { friendRepository.findById(id) } returns Optional.of(friendDocument)
+        every { friendDocumentRepository.findById(id) } returns Optional.of(friendDocument)
 
         val friendReturned = friendDataGateway.findById(id)
 
@@ -68,7 +68,7 @@ class FriendDataGatewayImplTest : UnitTest() {
         val friend = FriendTemplate.valid()
         val id = friend.id!!
 
-        every { friendRepository.findById(id) } returns Optional.empty()
+        every { friendDocumentRepository.findById(id) } returns Optional.empty()
 
         val friendReturned = friendDataGateway.findById(id)
 
@@ -81,7 +81,7 @@ class FriendDataGatewayImplTest : UnitTest() {
         val filter = FriendFilter()
         val pageable = PageRequest.of(0, 20)
 
-        every { friendCustomRepository.search(filter, pageable) } returns PageImpl(
+        every { friendDocumentCustomRepository.search(filter, pageable) } returns PageImpl(
             mutableListOf(
                 FriendDocument(friend)
             )
