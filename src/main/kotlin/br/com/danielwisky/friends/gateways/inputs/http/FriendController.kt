@@ -4,10 +4,7 @@ import br.com.danielwisky.friends.gateways.inputs.http.resources.request.FriendF
 import br.com.danielwisky.friends.gateways.inputs.http.resources.request.FriendRequest
 import br.com.danielwisky.friends.gateways.inputs.http.resources.response.FriendResponse
 import br.com.danielwisky.friends.gateways.inputs.http.resources.response.PageResponse
-import br.com.danielwisky.friends.usecases.CreateFriend
-import br.com.danielwisky.friends.usecases.FindFriend
-import br.com.danielwisky.friends.usecases.SearchFriends
-import br.com.danielwisky.friends.usecases.UpdateFriend
+import br.com.danielwisky.friends.usecases.*
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.data.domain.PageRequest.of
 import org.springframework.data.domain.Sort.Direction.DESC
@@ -20,6 +17,7 @@ import javax.validation.Valid
 class FriendController(
     private val createFriend: CreateFriend,
     private val updateFriend: UpdateFriend,
+    private val deleteFriend: DeleteFriend,
     private val findFriend: FindFriend,
     private val searchFriends: SearchFriends
 ) {
@@ -39,6 +37,13 @@ class FriendController(
         @RequestBody @Valid friendRequest: FriendRequest
     ): FriendResponse {
         return FriendResponse(updateFriend.execute(id, friendRequest.toDomain()))
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(description = "Delete friend")
+    fun delete(@PathVariable id: String) {
+        deleteFriend.execute(id)
     }
 
     @GetMapping("/{id}")

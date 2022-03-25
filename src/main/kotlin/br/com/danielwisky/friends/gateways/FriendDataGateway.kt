@@ -10,6 +10,8 @@ interface FriendDataGateway {
 
     fun save(friend: Friend): Friend
 
+    fun delete(id: String)
+
     fun findById(id: String): Optional<Friend>
 
     fun search(filter: FriendFilter, pageable: Pageable): Page<Friend>

@@ -2,10 +2,7 @@ package br.com.danielwisky.friends.gateways.inputs.http
 
 import br.com.danielwisky.friends.templates.FriendRequestTemplate
 import br.com.danielwisky.friends.templates.FriendTemplate
-import br.com.danielwisky.friends.usecases.CreateFriend
-import br.com.danielwisky.friends.usecases.FindFriend
-import br.com.danielwisky.friends.usecases.SearchFriends
-import br.com.danielwisky.friends.usecases.UpdateFriend
+import br.com.danielwisky.friends.usecases.*
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -32,6 +29,9 @@ class FriendControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @MockkBean
     lateinit var updateFriend: UpdateFriend
+
+    @MockkBean
+    lateinit var deleteFriend: DeleteFriend
 
     @MockkBean
     lateinit var findFriend: FindFriend
@@ -74,6 +74,16 @@ class FriendControllerTest(@Autowired val mockMvc: MockMvc) {
             .andExpect(jsonPath("$.name").value(friend.name))
             .andExpect(jsonPath("$.cellphone").value(friend.cellphone))
             .andExpect(jsonPath("$.email").value(friend.email))
+    }
+
+    @Test
+    fun `should delete friend`() {
+        var id = "623b6de056c0d152b447f64e"
+
+        every { deleteFriend.execute(id) } answers {}
+
+        mockMvc.perform(delete(String.format(URL_WITH_PARAM, id)))
+            .andExpect(status().isNoContent)
     }
 
     @Test

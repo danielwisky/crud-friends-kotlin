@@ -9,6 +9,7 @@ import br.com.danielwisky.friends.templates.FriendTemplate
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.data.domain.PageImpl
@@ -36,6 +37,17 @@ class FriendDataGatewayImplTest : UnitTest() {
         val friendSaved = friendDataGateway.save(friend)
 
         assertNotNull(friendSaved)
+    }
+
+    @Test
+    fun `should delete`() {
+        var id = "623b6de056c0d152b447f64e"
+
+        every { friendRepository.deleteById(id) } answers {}
+
+        friendDataGateway.delete(id)
+
+        verify { friendRepository.deleteById(id) }
     }
 
     @Test

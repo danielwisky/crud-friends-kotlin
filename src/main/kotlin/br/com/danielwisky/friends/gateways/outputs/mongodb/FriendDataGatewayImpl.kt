@@ -21,6 +21,10 @@ class FriendDataGatewayImpl(
         return friendRepository.save(FriendDocument(friend)).toDomain()
     }
 
+    override fun delete(id: String) {
+        friendRepository.deleteById(id)
+    }
+
     override fun findById(id: String): Optional<Friend> {
         return friendRepository.findById(id).map(FriendDocument::toDomain)
     }
