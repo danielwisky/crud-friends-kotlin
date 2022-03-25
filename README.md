@@ -1,8 +1,8 @@
 # CRUD - Friends
 
 ![](https://img.shields.io/badge/Autor-Daniel%20Wisky-brightgreen)
-![](https://img.shields.io/badge/Language-kotlin-brightgreen)
-![](https://img.shields.io/badge/Framework-springboot-brightgreen)
+![](https://img.shields.io/badge/Language-Kotlin-brightgreen)
+![](https://img.shields.io/badge/Framework-Spring%20Boot-brightgreen)
 ![](https://img.shields.io/badge/Arquitetura-Clean%20Arch-brightgreen)
 
 ## Technologies
