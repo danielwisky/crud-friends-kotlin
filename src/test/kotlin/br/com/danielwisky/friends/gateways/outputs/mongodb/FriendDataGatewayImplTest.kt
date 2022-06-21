@@ -3,7 +3,6 @@ package br.com.danielwisky.friends.gateways.outputs.mongodb
 import br.com.danielwisky.friends.UnitTest
 import br.com.danielwisky.friends.domains.FriendFilter
 import br.com.danielwisky.friends.gateways.outputs.mongodb.documents.FriendDocument
-import br.com.danielwisky.friends.gateways.outputs.mongodb.repositories.FriendDocumentCustomRepository
 import br.com.danielwisky.friends.gateways.outputs.mongodb.repositories.FriendDocumentRepository
 import br.com.danielwisky.friends.templates.FriendTemplate
 import io.mockk.every
@@ -23,9 +22,6 @@ class FriendDataGatewayImplTest : UnitTest() {
 
     @MockK
     lateinit var friendDocumentRepository: FriendDocumentRepository
-
-    @MockK
-    lateinit var friendDocumentCustomRepository: FriendDocumentCustomRepository
 
     @Test
     fun `should save`() {
@@ -81,7 +77,7 @@ class FriendDataGatewayImplTest : UnitTest() {
         val filter = FriendFilter()
         val pageable = PageRequest.of(0, 20)
 
-        every { friendDocumentCustomRepository.search(filter, pageable) } returns PageImpl(
+        every { friendDocumentRepository.search(filter, pageable) } returns PageImpl(
             mutableListOf(
                 FriendDocument(friend)
             )

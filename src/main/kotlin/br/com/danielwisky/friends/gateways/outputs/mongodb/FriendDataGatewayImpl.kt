@@ -4,7 +4,6 @@ import br.com.danielwisky.friends.domains.Friend
 import br.com.danielwisky.friends.domains.FriendFilter
 import br.com.danielwisky.friends.gateways.FriendDataGateway
 import br.com.danielwisky.friends.gateways.outputs.mongodb.documents.FriendDocument
-import br.com.danielwisky.friends.gateways.outputs.mongodb.repositories.FriendDocumentCustomRepository
 import br.com.danielwisky.friends.gateways.outputs.mongodb.repositories.FriendDocumentRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -14,7 +13,6 @@ import java.util.*
 @Component
 class FriendDataGatewayImpl(
     private val friendDocumentRepository: FriendDocumentRepository,
-    private val friendDocumentCustomRepository: FriendDocumentCustomRepository
 ) : FriendDataGateway {
 
     override fun save(friend: Friend): Friend {
@@ -30,6 +28,6 @@ class FriendDataGatewayImpl(
     }
 
     override fun search(filter: FriendFilter, pageable: Pageable): Page<Friend> {
-        return friendDocumentCustomRepository.search(filter, pageable).map(FriendDocument::toDomain)
+        return friendDocumentRepository.search(filter, pageable).map(FriendDocument::toDomain)
     }
 }
